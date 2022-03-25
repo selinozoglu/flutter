@@ -19,6 +19,8 @@ class Employee {
     this.info = info;
   }
 
+  Employee.withoutInfo();
+
   String get getInfo {
     String mesaj = '';
     if (this.level < 10) {

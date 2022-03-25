@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project1/models/employee.dart';
+import 'package:flutter_project1/screens/employee_add.dart';
 
 void main() {
   runApp(const MyApp());
@@ -80,7 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [Text('add'), Icon(Icons.add_circle_outline)],
                   ),
                   onPressed: () {
-                    print('add');
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmployeeAdd(employeeList)))
+                        .then((value){
+                          setState(() {
+                          });
+                    });
                   },
                 ),
               ),
