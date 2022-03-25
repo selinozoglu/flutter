@@ -33,15 +33,26 @@ class _EmployeeAddState extends State {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: const InputDecoration(
-                      labelText: 'Employee Name', hintText: 'Name'),
-                  onSaved:(value){
-                    employee.name = value!;
-                  }
-                ),
+                    decoration: const InputDecoration(
+                        labelText: 'Employee Name', hintText: 'Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty || value.length < 2) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      employee.name = value!;
+                    }),
                 TextFormField(
                   decoration: const InputDecoration(
                       labelText: 'Employee Surname', hintText: 'Surname'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 2) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     employee.surname = value!;
                   },
@@ -49,6 +60,12 @@ class _EmployeeAddState extends State {
                 TextFormField(
                   decoration: const InputDecoration(
                       labelText: 'Employee Level', hintText: 'Level'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   onSaved: (value) {
                     employee.level = int.parse(value!);
                   },
@@ -62,9 +79,14 @@ class _EmployeeAddState extends State {
 
   Widget saveButton() {
     return RaisedButton(
-        child: const Text('Save'), onPressed: (){
-          formKey.currentState?.save();
-          employeeList.add(employee);
-    });
+        child: const Text('Save'),
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            formKey.currentState?.save();
+            employeeList.add(employee);
+            Navigator.pop(context);
+          }
+          ;
+        });
   }
 }
